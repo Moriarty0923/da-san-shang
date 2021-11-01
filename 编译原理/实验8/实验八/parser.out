@@ -1,0 +1,535 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> doc
+Rule 1     doc -> BEGIN LB DOC RB content END LB DOC RB
+Rule 2     content -> title author abs sections subsections itemize TEXT
+Rule 3     title -> TITLE LB TEXT RB
+Rule 4     author -> AUTHOR LB TEXT RB
+Rule 5     abs -> BEGIN LB ABS RB TEXT END LB ABS RB
+Rule 6     sections -> sections section
+Rule 7     sections -> section
+Rule 8     section -> SECTION LB TEXT RB TEXT
+Rule 9     subsections -> subsections subsection
+Rule 10    subsections -> subsection
+Rule 11    subsection -> SUBSECTION LB TEXT RB TEXT
+Rule 12    itemize -> BEGIN LB ITEMIZE RB items END LB ITEMIZE RB
+Rule 13    items -> items item
+Rule 14    items -> item
+Rule 15    item -> ITEM TEXT
+
+Terminals, with rules where they appear
+
+ABS                  : 5 5
+AUTHOR               : 4
+BEGIN                : 1 5 12
+DOC                  : 1 1
+END                  : 1 5 12
+ITEM                 : 15
+ITEMIZE              : 12 12
+LB                   : 1 1 3 4 5 5 8 11 12 12
+RB                   : 1 1 3 4 5 5 8 11 12 12
+SECTION              : 8
+SUBSECTION           : 11
+TEXT                 : 2 3 4 5 8 8 11 11 15
+TITLE                : 3
+error                : 
+
+Nonterminals, with rules where they appear
+
+abs                  : 2
+author               : 2
+content              : 1
+doc                  : 0
+item                 : 13 14
+itemize              : 2
+items                : 12 13
+section              : 6 7
+sections             : 2 6
+subsection           : 9 10
+subsections          : 2 9
+title                : 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . doc
+    (1) doc -> . BEGIN LB DOC RB content END LB DOC RB
+
+    BEGIN           shift and go to state 1
+
+    doc                            shift and go to state 2
+
+state 1
+
+    (1) doc -> BEGIN . LB DOC RB content END LB DOC RB
+
+    LB              shift and go to state 3
+
+
+state 2
+
+    (0) S' -> doc .
+
+
+
+state 3
+
+    (1) doc -> BEGIN LB . DOC RB content END LB DOC RB
+
+    DOC             shift and go to state 4
+
+
+state 4
+
+    (1) doc -> BEGIN LB DOC . RB content END LB DOC RB
+
+    RB              shift and go to state 5
+
+
+state 5
+
+    (1) doc -> BEGIN LB DOC RB . content END LB DOC RB
+    (2) content -> . title author abs sections subsections itemize TEXT
+    (3) title -> . TITLE LB TEXT RB
+
+    TITLE           shift and go to state 6
+
+    title                          shift and go to state 7
+    content                        shift and go to state 8
+
+state 6
+
+    (3) title -> TITLE . LB TEXT RB
+
+    LB              shift and go to state 9
+
+
+state 7
+
+    (2) content -> title . author abs sections subsections itemize TEXT
+    (4) author -> . AUTHOR LB TEXT RB
+
+    AUTHOR          shift and go to state 11
+
+    author                         shift and go to state 10
+
+state 8
+
+    (1) doc -> BEGIN LB DOC RB content . END LB DOC RB
+
+    END             shift and go to state 12
+
+
+state 9
+
+    (3) title -> TITLE LB . TEXT RB
+
+    TEXT            shift and go to state 13
+
+
+state 10
+
+    (2) content -> title author . abs sections subsections itemize TEXT
+    (5) abs -> . BEGIN LB ABS RB TEXT END LB ABS RB
+
+    BEGIN           shift and go to state 14
+
+    abs                            shift and go to state 15
+
+state 11
+
+    (4) author -> AUTHOR . LB TEXT RB
+
+    LB              shift and go to state 16
+
+
+state 12
+
+    (1) doc -> BEGIN LB DOC RB content END . LB DOC RB
+
+    LB              shift and go to state 17
+
+
+state 13
+
+    (3) title -> TITLE LB TEXT . RB
+
+    RB              shift and go to state 18
+
+
+state 14
+
+    (5) abs -> BEGIN . LB ABS RB TEXT END LB ABS RB
+
+    LB              shift and go to state 19
+
+
+state 15
+
+    (2) content -> title author abs . sections subsections itemize TEXT
+    (6) sections -> . sections section
+    (7) sections -> . section
+    (8) section -> . SECTION LB TEXT RB TEXT
+
+    SECTION         shift and go to state 20
+
+    sections                       shift and go to state 21
+    section                        shift and go to state 22
+
+state 16
+
+    (4) author -> AUTHOR LB . TEXT RB
+
+    TEXT            shift and go to state 23
+
+
+state 17
+
+    (1) doc -> BEGIN LB DOC RB content END LB . DOC RB
+
+    DOC             shift and go to state 24
+
+
+state 18
+
+    (3) title -> TITLE LB TEXT RB .
+
+    AUTHOR          reduce using rule 3 (title -> TITLE LB TEXT RB .)
+
+
+state 19
+
+    (5) abs -> BEGIN LB . ABS RB TEXT END LB ABS RB
+
+    ABS             shift and go to state 25
+
+
+state 20
+
+    (8) section -> SECTION . LB TEXT RB TEXT
+
+    LB              shift and go to state 26
+
+
+state 21
+
+    (2) content -> title author abs sections . subsections itemize TEXT
+    (6) sections -> sections . section
+    (9) subsections -> . subsections subsection
+    (10) subsections -> . subsection
+    (8) section -> . SECTION LB TEXT RB TEXT
+    (11) subsection -> . SUBSECTION LB TEXT RB TEXT
+
+    SECTION         shift and go to state 20
+    SUBSECTION      shift and go to state 30
+
+    subsections                    shift and go to state 27
+    subsection                     shift and go to state 28
+    section                        shift and go to state 29
+
+state 22
+
+    (7) sections -> section .
+
+    SECTION         reduce using rule 7 (sections -> section .)
+    SUBSECTION      reduce using rule 7 (sections -> section .)
+
+
+state 23
+
+    (4) author -> AUTHOR LB TEXT . RB
+
+    RB              shift and go to state 31
+
+
+state 24
+
+    (1) doc -> BEGIN LB DOC RB content END LB DOC . RB
+
+    RB              shift and go to state 32
+
+
+state 25
+
+    (5) abs -> BEGIN LB ABS . RB TEXT END LB ABS RB
+
+    RB              shift and go to state 33
+
+
+state 26
+
+    (8) section -> SECTION LB . TEXT RB TEXT
+
+    TEXT            shift and go to state 34
+
+
+state 27
+
+    (2) content -> title author abs sections subsections . itemize TEXT
+    (9) subsections -> subsections . subsection
+    (12) itemize -> . BEGIN LB ITEMIZE RB items END LB ITEMIZE RB
+    (11) subsection -> . SUBSECTION LB TEXT RB TEXT
+
+    BEGIN           shift and go to state 35
+    SUBSECTION      shift and go to state 30
+
+    itemize                        shift and go to state 36
+    subsection                     shift and go to state 37
+
+state 28
+
+    (10) subsections -> subsection .
+
+    BEGIN           reduce using rule 10 (subsections -> subsection .)
+    SUBSECTION      reduce using rule 10 (subsections -> subsection .)
+
+
+state 29
+
+    (6) sections -> sections section .
+
+    SECTION         reduce using rule 6 (sections -> sections section .)
+    SUBSECTION      reduce using rule 6 (sections -> sections section .)
+
+
+state 30
+
+    (11) subsection -> SUBSECTION . LB TEXT RB TEXT
+
+    LB              shift and go to state 38
+
+
+state 31
+
+    (4) author -> AUTHOR LB TEXT RB .
+
+    BEGIN           reduce using rule 4 (author -> AUTHOR LB TEXT RB .)
+
+
+state 32
+
+    (1) doc -> BEGIN LB DOC RB content END LB DOC RB .
+
+    $end            reduce using rule 1 (doc -> BEGIN LB DOC RB content END LB DOC RB .)
+
+
+state 33
+
+    (5) abs -> BEGIN LB ABS RB . TEXT END LB ABS RB
+
+    TEXT            shift and go to state 39
+
+
+state 34
+
+    (8) section -> SECTION LB TEXT . RB TEXT
+
+    RB              shift and go to state 40
+
+
+state 35
+
+    (12) itemize -> BEGIN . LB ITEMIZE RB items END LB ITEMIZE RB
+
+    LB              shift and go to state 41
+
+
+state 36
+
+    (2) content -> title author abs sections subsections itemize . TEXT
+
+    TEXT            shift and go to state 42
+
+
+state 37
+
+    (9) subsections -> subsections subsection .
+
+    BEGIN           reduce using rule 9 (subsections -> subsections subsection .)
+    SUBSECTION      reduce using rule 9 (subsections -> subsections subsection .)
+
+
+state 38
+
+    (11) subsection -> SUBSECTION LB . TEXT RB TEXT
+
+    TEXT            shift and go to state 43
+
+
+state 39
+
+    (5) abs -> BEGIN LB ABS RB TEXT . END LB ABS RB
+
+    END             shift and go to state 44
+
+
+state 40
+
+    (8) section -> SECTION LB TEXT RB . TEXT
+
+    TEXT            shift and go to state 45
+
+
+state 41
+
+    (12) itemize -> BEGIN LB . ITEMIZE RB items END LB ITEMIZE RB
+
+    ITEMIZE         shift and go to state 46
+
+
+state 42
+
+    (2) content -> title author abs sections subsections itemize TEXT .
+
+    END             reduce using rule 2 (content -> title author abs sections subsections itemize TEXT .)
+
+
+state 43
+
+    (11) subsection -> SUBSECTION LB TEXT . RB TEXT
+
+    RB              shift and go to state 47
+
+
+state 44
+
+    (5) abs -> BEGIN LB ABS RB TEXT END . LB ABS RB
+
+    LB              shift and go to state 48
+
+
+state 45
+
+    (8) section -> SECTION LB TEXT RB TEXT .
+
+    SECTION         reduce using rule 8 (section -> SECTION LB TEXT RB TEXT .)
+    SUBSECTION      reduce using rule 8 (section -> SECTION LB TEXT RB TEXT .)
+
+
+state 46
+
+    (12) itemize -> BEGIN LB ITEMIZE . RB items END LB ITEMIZE RB
+
+    RB              shift and go to state 49
+
+
+state 47
+
+    (11) subsection -> SUBSECTION LB TEXT RB . TEXT
+
+    TEXT            shift and go to state 50
+
+
+state 48
+
+    (5) abs -> BEGIN LB ABS RB TEXT END LB . ABS RB
+
+    ABS             shift and go to state 51
+
+
+state 49
+
+    (12) itemize -> BEGIN LB ITEMIZE RB . items END LB ITEMIZE RB
+    (13) items -> . items item
+    (14) items -> . item
+    (15) item -> . ITEM TEXT
+
+    ITEM            shift and go to state 52
+
+    items                          shift and go to state 53
+    item                           shift and go to state 54
+
+state 50
+
+    (11) subsection -> SUBSECTION LB TEXT RB TEXT .
+
+    BEGIN           reduce using rule 11 (subsection -> SUBSECTION LB TEXT RB TEXT .)
+    SUBSECTION      reduce using rule 11 (subsection -> SUBSECTION LB TEXT RB TEXT .)
+
+
+state 51
+
+    (5) abs -> BEGIN LB ABS RB TEXT END LB ABS . RB
+
+    RB              shift and go to state 55
+
+
+state 52
+
+    (15) item -> ITEM . TEXT
+
+    TEXT            shift and go to state 56
+
+
+state 53
+
+    (12) itemize -> BEGIN LB ITEMIZE RB items . END LB ITEMIZE RB
+    (13) items -> items . item
+    (15) item -> . ITEM TEXT
+
+    END             shift and go to state 58
+    ITEM            shift and go to state 52
+
+    item                           shift and go to state 57
+
+state 54
+
+    (14) items -> item .
+
+    END             reduce using rule 14 (items -> item .)
+    ITEM            reduce using rule 14 (items -> item .)
+
+
+state 55
+
+    (5) abs -> BEGIN LB ABS RB TEXT END LB ABS RB .
+
+    SECTION         reduce using rule 5 (abs -> BEGIN LB ABS RB TEXT END LB ABS RB .)
+
+
+state 56
+
+    (15) item -> ITEM TEXT .
+
+    END             reduce using rule 15 (item -> ITEM TEXT .)
+    ITEM            reduce using rule 15 (item -> ITEM TEXT .)
+
+
+state 57
+
+    (13) items -> items item .
+
+    END             reduce using rule 13 (items -> items item .)
+    ITEM            reduce using rule 13 (items -> items item .)
+
+
+state 58
+
+    (12) itemize -> BEGIN LB ITEMIZE RB items END . LB ITEMIZE RB
+
+    LB              shift and go to state 59
+
+
+state 59
+
+    (12) itemize -> BEGIN LB ITEMIZE RB items END LB . ITEMIZE RB
+
+    ITEMIZE         shift and go to state 60
+
+
+state 60
+
+    (12) itemize -> BEGIN LB ITEMIZE RB items END LB ITEMIZE . RB
+
+    RB              shift and go to state 61
+
+
+state 61
+
+    (12) itemize -> BEGIN LB ITEMIZE RB items END LB ITEMIZE RB .
+
+    TEXT            reduce using rule 12 (itemize -> BEGIN LB ITEMIZE RB items END LB ITEMIZE RB .)
+
